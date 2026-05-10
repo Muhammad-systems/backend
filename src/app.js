@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cookieparser from "cookie-parser";
 import { userAuthrouter } from "./routes/user.auth.route.js";
 import { productRouter } from "./routes/product.route.js";
+import { cartRouter } from "./routes/cart.route.js";
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(cookieparser());
 
 app.use("/api", userAuthrouter);
 app.use("/", productRouter);
+app.use('/',cartRouter)
 
 export default app;

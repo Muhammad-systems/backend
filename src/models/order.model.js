@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 
 /** Order schema - stores purchase orders with items and payment details */
 const orderSchema = mongoose.Schema(
@@ -42,9 +43,15 @@ const orderSchema = mongoose.Schema(
       required: true,
       enum: ["COD", "Online"],
     },
+    paymentStatus:{
+      type:String,
+      required:true,
+      enum: ["pending", "paid", "failed", "refunded"],
+      default:"pending"
+    },
     status: {
       type: String,
-      enum: ["pending", "paid", "shipped", "delivered"],
+      enum: ["pending", "processing", "shipped", "delivered","cancelled"],
       default: "pending",
     },
     bill: {

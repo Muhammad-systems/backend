@@ -38,3 +38,30 @@ export const createProductValidate = z.object({
     .min(0, "Stock cannot be negative"),
   images: z.array(z.string()).min(1, "At least one image is required"),
 });
+
+/** Order place validation schema */
+export const placeOrderValidation = z.object({
+  items: z.array(
+    z.object({
+      product: z.string().min(24, "Invalid Product ID"), // In mongoDb the length of Id is 24
+      quantity: z.number().min(1, "Quantity must be at least 1"),
+      price: z.number().min(0),
+      title: z.string().optional(),
+    })
+  ).min(1, "At least one item is required"),
+  
+  fullname: z.object({
+    firstname: z.string().min(1, "Firstname is required"),
+    lastname: z.string().optional(),
+  }),
+  phone: z.string().min(10, "Invalid phone number"),
+  address: z.string().min(5, "Address too short"),
+  paymentMethod: z.enum(["COD", "Online"]),
+});
+
+/** Cart creation validation schema */
+export const cartValidation = z.object({
+    quantity: z.number({
+        required_error: "Quantity is required",
+    }).min(1, "Quantity must be at least 1")
+});
